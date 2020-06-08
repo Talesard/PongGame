@@ -1,0 +1,15 @@
+
+WIDTH = 1280
+HEIGHT = 720
+TILE = 80
+FPS = 60
+
+# colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (220, 0, 0)
+GREEN = (0, 220, 0)
+BLUE = (0, 0, 220)
+DARK_GRAY = (110, 110, 110)
+PURPLE = (120, 0, 120)
+
