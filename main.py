@@ -6,7 +6,8 @@ pygame.font.SysFont('arial', 36)
 f1 = pygame.font.Font(None, 30)
 
 clock = pygame.time.Clock()
-
+sound_pong = pygame.mixer.Sound('oh.wav')
+pygame.mixer.Sound.set_volume(sound_pong, 0.2)
 player_speed = 10
 ball_speed_horizontal = 7
 ball_speed_vertical = 7
@@ -51,6 +52,31 @@ while True:
         ball_x = WIDTH // 2
         ball_y = HEIGHT // 2
 
+    if keys[pygame.K_e]:
+        if ball_speed_vertical > 0:
+            ball_speed_vertical += 1
+        else:
+            ball_speed_vertical -= 1
+        if ball_speed_horizontal > 0:
+            ball_speed_horizontal += 1
+        else:
+            ball_speed_horizontal -= 1
+        print(ball_speed_horizontal, ball_speed_vertical)
+
+    if keys[pygame.K_q]:
+        if ball_speed_vertical > 0:
+            if ball_speed_vertical - 1 > 0:
+                ball_speed_vertical -= 1
+        elif ball_speed_vertical + 1 < 0:
+            ball_speed_vertical += 1
+        if ball_speed_horizontal > 0:
+            if ball_speed_horizontal - 1 > 0:
+                ball_speed_horizontal -= 1
+        elif ball_speed_horizontal + 1 < 0:
+            ball_speed_horizontal += 1
+
+        print(ball_speed_horizontal, ball_speed_vertical)
+
     if ball_x + ball_speed_horizontal + ball_radius >= WIDTH:   # down side
         ball_speed_horizontal *= -1
 
@@ -65,20 +91,24 @@ while True:
 
     if (ball_x + ball_speed_horizontal - ball_radius <= 50) and (ball_y >= y1) and (ball_y <= y1 + 100):   # left player
         ball_speed_horizontal *= -1
-        ball_speed_vertical *= -1
+        # ball_speed_vertical *= -1
 
     if (ball_x + ball_speed_horizontal + ball_radius >= WIDTH - 50) and (ball_y >= y2) and (ball_y <= y2 + 100):  # right player
         ball_speed_horizontal *= -1
-        ball_speed_vertical *= -1
+        # ball_speed_vertical *= -1
 
     if ball_x + ball_speed_horizontal - ball_radius <= 50 - 5:   # left player
         if left_flag:
+            sound_pong.stop()
+            sound_pong.play()
             right_score += 1
             print(left_score, right_score, sep=" | ")
             left_flag = False
 
     if ball_x + ball_speed_horizontal + ball_radius >= WIDTH - 50 + 5:  # right player
         if right_flag:
+            sound_pong.stop()
+            sound_pong.play()
             left_score += 1
             print(left_score, right_score, sep=" | ")
             right_flag = False
